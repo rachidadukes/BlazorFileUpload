@@ -1,0 +1,93 @@
+﻿@page "/SaveSelectedFile"
+
+@using BlazorFileUpload.Shared
+
+@inject HttpClient Http
+@inject IConfiguration Configuration
+
+
+
+
+<div class="form-group row">
+    <label for="file-upload">Select File: </label>
+    <InputFile id="file-upload" OnChange="@OnInputFileChange" multiple />
+</div>
+
+
+<br />
+<hr />
+<div class="form-group row">
+    <h3>@message</h3>
+</div>
+<br />
+<hr />
+<div class="form-group row">
+    <h3>@UploadMessage</h3>
+</div>
+<table class="table table-bordered" style="margin-top:10px;">
+    <thead>
+        <tr>
+            <th>File Name</th>
+            <th>File Size</th>
+            <th>Last Modified</th>
+            <th>Upload</th>
+            <th>Save</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (selectedFiles != null && selectedFiles.Count > 0)
+        {
+            @foreach (var file in selectedFiles)
+            {
+                <tr>
+                    <td>@file.Name</td>
+                    <td>@file.Size</td>
+                    <td>@file.LastModified</td>
+                    <td><button class="btn btn-primary" @onclick="() =>UploadOneFile(file)">Upload</button></td>
+                    <td><button class="btn btn-primary" @onclick="() =>SaveContentFile(file)">Save</button></td>
+                </tr>
+}}
+    </tbody>
+</table>
+
+
+<table class="table table-bordered" style="margin-top:10px;">
+    <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Size</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Employees != null && Employees.Count > 0)
+        {
+            @foreach (var file in Employees)
+            {
+                <tr>
+                    <td>@file.FirstName</td>
+                    <td>@file.LastName</td>
+
+                </tr>
+            }}
+    </tbody>
+</table>
+
+
+
+@code
+{
+    private string message = "No file(s) selected";
+   
+    IReadOnlyList<IBrowserFile> selectedFiles;
+
+    private void OnInputFileChange(InputFileChangeEventArgs e)
+    {
+        selectedFiles = e.GetMultipleFiles();
+        message = $"{selectedFiles.Count} file(s) displayed";
+        this.StateHasChanged();
+    }
+
+
+
+
+}

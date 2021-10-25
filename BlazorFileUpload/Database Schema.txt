@@ -1,0 +1,19 @@
+Create database called
+------------------
+EmployeeDB2
+
+=================================
+
+then create this table
+-----------------
+CREATE TABLE [dbo].[Employees] (
+    [EmployeeId]   INT            IDENTITY (1, 1) NOT NULL,
+    [FirstName]    NVARCHAR (MAX) NULL,
+    [LastName]     NVARCHAR (MAX) NULL,
+    [Email]        NVARCHAR (MAX) NULL,
+    [DateOfBrith]  DATETIME2 (7)  NULL,
+    [Gender]       INT            NULL,
+    [DepartmentId] INT            NULL,
+    [PhotoPath]    NVARCHAR (MAX) NULL,
+    CONSTRAINT [PK_Employees] PRIMARY KEY CLUSTERED ([EmployeeId] ASC)
+);
